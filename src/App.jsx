@@ -48,6 +48,7 @@ const App = () => {
 
   const resetTimer = () => {
     setRunning(false);
+    setCentisecond(0);
     setSecond(0);
     setMinute(0);
     setHour(0);
