@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const App = () => {
+  const [centisecond, setCentisecond] = useState(0);
   const [second, setSecond] = useState(0);
   const [minute, setMinute] = useState(0);
   const [hour, setHour] = useState(0);
@@ -18,20 +19,26 @@ const App = () => {
       }
 
       intervalRef.current = setInterval(() => {
-        setSecond((s) => {
-          if (s >= 59) {
-            setMinute((m) => {
-              if (m >= 59) {
-                setHour((h) => h + 1);
+        setCentisecond((cs) => {
+          if (cs >= 99) {
+            setSecond((s) => {
+              if (s >= 59) {
+                setMinute((m) => {
+                  if (m >= 59) {
+                    setHour((h) => h + 1);
+                    return 0;
+                  }
+                  return m + 1;
+                });
                 return 0;
               }
-              return m + 1;
+              return s + 1;
             });
             return 0;
           }
-          return s + 1;
+          return cs + 1;
         });
-      }, 1000);
+      }, 10);
     }
 
     return () => {
@@ -71,6 +78,13 @@ const App = () => {
                 {String(second).padStart(2, "0")}
               </h1>
               <p>Seconds</p>
+            </div>
+            <div className="text-7xl font-bold">:</div>
+            <div className="flex flex-col justify-center items-center mt-12 gap-2">
+              <h1 className="text-7xl font-bold" id="seconds">
+                {String(centisecond).padStart(2, "0")}
+              </h1>
+              <p>Centiseconds</p>
             </div>
           </div>
           <div className="flex gap-20">
